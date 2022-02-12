@@ -53,3 +53,20 @@ NVARCHAR(n)  -- Unlike varchar, it supports unicode.
 ```sql
 BLOB(n) or TEXT(n) -- Up to 65.535 bytes (approximately 64 KB) of data can be stored.
 ```
+#### Date
+
+```sql
+DATE -- Format - (YYYY-MM-DD)
+```
+
+#### Date Time
+
+```sql
+DATETIME -- Format - (YYYY-MM-DD HH:MM:SS)
+```
+
+#### Time
+
+```sql
+TIME -- Format - (HH:MM:SS)
+```
