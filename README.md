@@ -70,3 +70,19 @@ DATETIME -- Format - (YYYY-MM-DD HH:MM:SS)
 ```sql
 TIME -- Format - (HH:MM:SS)
 ```
+
+## Comments
+
+```sql
+/* Multi
+line
+comment */
+```
+
+```sql
+# Single Line Comment
+```
+
+```sql
+-- Single Line Comment
+```
