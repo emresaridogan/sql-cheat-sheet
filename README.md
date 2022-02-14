@@ -244,3 +244,30 @@ select * from tblEmployee where last_name like '%r%';          -- Similar to *r*
 ```sql
 select * from tblEmployee where first_name like 'Ca_';           -- Similar to Ca. in regrex
 ```
+
+## Aggregation
+
+#### Sum function
+```sql
+select sum(salary) from tblEmployee;
+```
+
+#### Average function
+```sql
+select avg(salary) from tblEmployee;
+```
+
+#### Count function
+```sql
+select count(salary) tblEmployee;
+```
+
+#### Maximum function
+```sql
+select max(salary) from tblEmployee;
+```
+
+#### Minimum function
+```sql
+select min(salary) from tblEmployee;
+```
