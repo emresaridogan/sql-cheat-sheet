@@ -86,49 +86,59 @@ use db;
 
 #### Create Table
 ```sql
-create table tblEmployee
+create table tblStudents
 (
-    employee_id tinyint primary key,             
+    student_id tinyint identity (1,1) primary key,             
     first_name varchar(50),
     last_name varchar(50),
-    dept_number tinyint,
+    gender varchar(6),
     age tinyint,
-    salary smallint
+	club varchar(50),
+	city varchar(25)
 );
 
-create table tblDepartment
+create table tblLessons
 (
-    dept_number tinyint primary key,
-    dept_name varchar(50),
-    dept_location varchar(50),
-    emp_id tinyint
+	lesson_id tinyint identity (1,1) primary key,    
+	lesson_name varchar(20)
+)
+
+create table tblResults
+(
+    result_id tinyint identity (1,1) primary key,             
+    student_id tinyint,
+    lesson_id tinyint,
+    exam1 smallint,
+    exam2 smallint,
+	average decimal(5,2),
+	result bit
 );
+
+```
+#### Drop Column
+```sql
+alter table tblStudents drop column gender;
+
 ```
 
 #### Add Column
 ```sql
-alter table tblEmployee add gender bit;
-```
-
-#### Drop Column
-```sql
-alter table tblEmployee drop column gender;
-
+alter table tblStudents add gender bit;
 ```
 
 #### Modify the Datatype of column
 ```sql
-alter table tblEmployee alter column salary real;
+alter table tblStudents alter column average tinyint;
 ```
 
 #### Truncate Table
 ```sql
-truncate table tblEmployee; --  Delete all rows
+truncate table tblStudents; --  Delete all rows
 ```
 
 #### Drop Table
 ```sql
-drop table tblDepartment;
+drop table tblLessons;
 ```
 
 #### Drop Database
@@ -140,134 +150,147 @@ drop database db;
 
 #### Insertion (Complete)
 ```sql
-insert into tblEmployee (employee_id, first_name, last_name, dept_number, age, salary) values (1, 'James', 'Clear', 1, 20, 3100.80);
-
-insert into tblEmployee values (2, 'Cal', 'Newport', 2, 25, 4500.60);
+insert into tblStudents (first_name, last_name, gender, age, club, city) values('Ali','Yıldırım','Male',21,'Chess','İzmir');
+insert into tblStudents values('Baran','Doğu','Male',20,'Football','Malatya');
 ```
+
 #### Insertion (Partial)
 ```sql
-insert into tblEmployee (employee_id, first_name) values (3,'Morgan');
+insert into tblStudents (first_name, last_name) values('Emre','Sarı');
 ```
 
 #### Updating all rows
 ```sql
-update tblEmployee set salary = 0.5 * salary;
+update tblResults set average=(exam1+exam2)/2;
 ```
 
 #### Updating a specified row
 ```sql
-update tblEmployee set salary = 1.2 * salary where employee_id = 1;
+update tblResults set average = average + 10 where student_id = 1;
 ```
 
 #### Delete a specified row
 ```sql
-delete from tblEmployee where employee_id = 2;
+delete from tblStudents where student_id = 2;
 ```
 
 #### Delete all rows
 ```sql
-delete from tblEmployee;
+delete from tblStudents;
 ```
 ## Data Query Language (DQL)
 
 #### Display Table
 ```sql
-select * from tblEmployee;
+select * from tblStudents;
 ```
 
 #### Select only specified columns
 ```sql
-select employee_id, first_name from tblEmployee;
+select student_id, first_name from tblStudents;
 ```
 
 #### Select only few rows
 ```sql
-select employee_id, first_name from tblEmployee where age > 25;
+select student_id, first_name from tblStudents where age > 20;
 ```
 
 ### Where Clause
 
 #### Greater than(>)
 ```sql
-select * from tblEmployee where salary > 3100;
+select * from tblResults where average > 49;
 ```
 
 #### Greater than equal to(>=)
 ```sql
-select * from tblEmployee where salary >= 3100;
+select * from tblResults where average >= 50;
 ```
 
 #### Less than(<)
 ```sql
-select * from tblEmployee where salary < 4500;
+select * from tblResults where average < 50;
 ```
 
 #### Less than equal to(<=)
 ```sql
-select * from tblEmployee where salary <= 4500;
+select * from tblResults where average <= 49;
 ```
 
 #### Range
 ```sql
-select * from tblEmployee where salary <= 3100 and salary < 4500;
+select * from tblResults where average >= 50 and average < 80;
 ```
 
 #### BETWEEN and AND
 ```sql
-select * from tblEmployee where salary between 3100 and 4500;
+select * from tblResults where average between 50 and 80;
 ```
 
 ### OR
 ```sql
-select * from tblEmployee where salary = 3100 or salary = 4500;
+select * from tblResults where average = 50 or average = 75;
 ```
 
 #### Null
 ```sql
-select * from tblEmployee where salary is NULL;
+select * from tblStudents where gender is NULL;
 ```
 
 #### Not null
 ```sql
-select * from tblEmployee where salary is NOT NULL;
+select * from tblStudents where gender is NOT NULL;
 ```
 
 ### ORDER BY Clause
 ```sql
-select * from tblEmployee ORDER BY salary DESC;
+select * from tblStudents ORDER BY age DESC; --large to small sorting
+select * from tblStudents ORDER BY age asc; -- small to large sorting
 ```
 
 #### Like Operator
 ```sql
-select * from tblEmployee where last_name like '%r%';          -- Similar to *r* in regrex
+select * from tblStudents where last_name like '%a%'; -- Similar to *a* in regrex
 ```
 ```sql
-select * from tblEmployee where first_name like 'Ca_';           -- Similar to Ca. in regrex
+select * from tblStudents where first_name like 'Al_'; -- Similar to Al. in regrex
 ```
 
 ## Aggregation
 
 #### Sum function
 ```sql
-select sum(salary) from tblEmployee;
+select sum(exam1) from tblResults;
 ```
 
 #### Average function
 ```sql
-select avg(salary) from tblEmployee;
+select avg(exam1) from tblResults;
 ```
 
 #### Count function
 ```sql
-select count(salary) tblEmployee;
+select count(exam1) from tblResults;
 ```
 
 #### Maximum function
 ```sql
-select max(salary) from tblEmployee;
+select max(exam1) from tblResults;
 ```
 
 #### Minimum function
 ```sql
-select min(salary) from tblEmployee;
+select min(exam1) from tblResults;
+```
+
+## Group By
+
+```sql
+select gender, count(*) as 'Count Of Students' from tblStudents group by gender
+```
+
+## Having
+
+```sql
+select age, count(*) as 'Count Of Students' from tblStudents group by age having count(*) < 2 -- Adds that the number of students must be less than 2
 ```
