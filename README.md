@@ -120,7 +120,7 @@ create table tblLessons
 (
 	lesson_id tinyint identity (1,1) primary key,
 	lesson_name varchar(20)
-)
+);
 
 create table tblResults
 (
@@ -304,6 +304,25 @@ select * from tblStudents where last_name like '%a%'; -- Similar to *a* in regre
 select * from tblStudents where first_name like 'Al_'; -- Similar to Al. in regrex
 ```
 
+#### Distinct
+
+```sql
+select count(distinct(city)) from tblStudents -- Unique values
+```
+
+#### Top & Percent
+
+```sql
+select top 4* from tblStudents
+select top 50 percent * from tblStudents
+```
+
+#### In
+
+```sql
+select * from tblStudents where club in ('Chess','Library')
+```
+
 ## Aggregation
 
 #### Sum function
@@ -346,4 +365,33 @@ select gender, count(*) as 'Count Of Students' from tblStudents group by gender
 
 ```sql
 select age, count(*) as 'Count Of Students' from tblStudents group by age having count(*) < 2 -- Adds that the number of students must be less than 2
+```
+## Where 
+
+```sql
+select result_id, first_name+' '+last_name as 'Name',lesson_name,exam1,exam2,average,result from tblResults, tblLessons, tblStudents where tblResults.lesson_id=tblLessons.lesson_id and tblStudents.student_id=tblResults.student_id
+```
+## Inner Join
+
+```sql
+select result_id, first_name+' '+last_name as 'Name',lesson_name,exam1,exam2,average,result from tblResults 
+inner join tblLessons on tblResults.lesson_id=tblLessons.lesson_id 
+inner join tblStudents on tblStudents.student_id=tblResults.student_id
+```
+
+## Left Join
+
+```sql
+select * from tblResults as r left join tblStudents as s on r.student_id=s.student_id
+```
+## Right Join
+
+```sql
+select * from tblResults as r left join tblStudents as s on r.student_id=s.student_id
+```
+
+## Full Join
+
+```sql
+select * from tblResults as r full join tblStudents as s on r.student_id=s.student_id
 ```
