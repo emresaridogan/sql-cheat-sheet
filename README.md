@@ -391,7 +391,47 @@ select * from tblResults as r left join tblStudents as s on r.student_id=s.stude
 ```
 
 ## Full Join
-
 ```sql
 select * from tblResults as r full join tblStudents as s on r.student_id=s.student_id
+```
+
+## Procedure
+
+#### Create Procedure Without Parameter
+```sql
+create procedure sales
+as
+select sales_id, product_name, first_name+' '+last_name, employee_name,how_many,sale_price,how_many*sale_price,sale_date 
+from tblSales s,tblProducts p,tblCustomer c,tblEmployee e 
+where s.product_id=p.product_id and s.customer_id=c.customer_id and s.employee_id=e.employee_id
+```
+
+#### Create Procedure With Parameter
+```sql
+create procedure getProduct
+@value varchar(50)=''
+as
+select product_name,stock,brand from tblProducts where product_name=@value
+```
+
+#### Alter Procedure
+```sql
+ALTER procedure sales
+as
+select sales_id, product_name, left(first_name,1)+'.'+last_name, employee_name,how_many,sale_price,how_many*sale_price,sale_date 
+from tblSales s,tblProducts p,tblCustomer c,tblEmployee e 
+where s.product_id=p.product_id and s.customer_id=c.customer_id and s.employee_id=e.employee_id
+```
+#### Delete Procedure
+```sql
+drop procedure sales
+```
+
+## Trigger
+```sql
+create trigger action
+on tblSales
+after insert --insert,delete,update
+as
+update tblActions set action+=1
 ```
